@@ -22,13 +22,16 @@
   html{scroll-behavior:smooth;}
   body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden;}
 
-  /* ── BLOBS (softer) ── */
+  /* ── BLOBS (animated) ── */
   .blob-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
   .blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.1;}
-  .b1{width:600px;height:600px;background:var(--blush);top:-200px;right:-100px;}
-  .b2{width:500px;height:500px;background:var(--peach);bottom:20%;left:-150px;}
-  .b3{width:400px;height:400px;background:var(--lavender);top:50%;right:15%;}
-  .b4{width:300px;height:300px;background:var(--sage);bottom:10%;left:20%;}
+  .b1{width:600px;height:600px;background:var(--blush);top:-200px;right:-100px;animation:float1 20s ease-in-out infinite;}
+  .b2{width:500px;height:500px;background:var(--peach);bottom:20%;left:-150px;animation:float2 25s ease-in-out infinite;}
+  .b3{width:400px;height:400px;background:var(--lavender);top:50%;right:15%;animation:float3 22s ease-in-out infinite;}
+  .b4{width:300px;height:300px;background:var(--sage);bottom:10%;left:20%;animation:float1 18s ease-in-out infinite reverse;}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,30px)}}
+  @keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,25px)}}
 
   .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;}
 
@@ -37,11 +40,29 @@
   .hd-date{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-faint);margin-bottom:24px;}
   .hd h1{font-family:'Playfair Display',serif;font-size:clamp(40px,8vw,80px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:16px;color:var(--ink);}
   .hd h1 em{font-style:italic;color:var(--rose);}
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap{text-align:center;margin-top:24px;margin-bottom:8px;}
+  .progress-text{font-family:'Caveat',cursive;font-size:20px;color:var(--terracotta);margin-bottom:10px;}
+  .progress-bar{width:280px;height:8px;background:rgba(61,50,53,0.06);border-radius:8px;margin:0 auto;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--peach),var(--rose));border-radius:8px;transition:width .6s ease;}
+
   /* ── PHOTO BANNER ── */
   .banner{display:flex;gap:10px;padding:0 40px;margin-top:32px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
   .banner::-webkit-scrollbar{display:none;}
-  .banner img{width:120px;height:120px;object-fit:cover;border-radius:14px;flex-shrink:0;transition:transform .2s;}
-  .banner img:hover{transform:scale(1.05);}
+  .banner img{width:120px;height:120px;object-fit:cover;border-radius:14px;flex-shrink:0;transition:transform .3s;animation:bannerFloat 6s ease-in-out infinite;}
+  .banner img:nth-child(2){animation-delay:-0.8s;}
+  .banner img:nth-child(3){animation-delay:-1.6s;}
+  .banner img:nth-child(4){animation-delay:-2.4s;}
+  .banner img:nth-child(5){animation-delay:-3.2s;}
+  .banner img:nth-child(6){animation-delay:-4s;}
+  .banner img:nth-child(7){animation-delay:-4.8s;}
+  .banner img:nth-child(8){animation-delay:-0.4s;}
+  .banner img:nth-child(9){animation-delay:-1.2s;}
+  .banner img:nth-child(10){animation-delay:-2s;}
+  .banner img:nth-child(11){animation-delay:-2.8s;}
+  .banner img:hover{transform:scale(1.08) rotate(-2deg);}
+  @keyframes bannerFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   @media(max-width:640px){.banner{padding:0 24px;gap:8px;}.banner img{width:90px;height:90px;border-radius:10px;}}
 
   /* ── NAV ── */
@@ -55,12 +76,16 @@
   .btt.show{opacity:1;transform:translateY(0);pointer-events:auto;}
   .btt:hover{transform:translateY(-2px);}
 
-  /* ── SECTIONS ── */
+  /* ── SECTIONS (scroll reveal) ── */
   .section{padding:56px 40px;}
   .section-label{font-family:'Caveat',cursive;font-size:14px;color:var(--terracotta);margin-bottom:4px;}
   h2{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin-bottom:28px;color:var(--ink);}
   h2 em{font-style:italic;color:var(--rose);}
   @media(max-width:640px){.section{padding:40px 24px;}}
+
+  /* ── SCROLL REVEAL ── */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
 
   /* ── MONTH CARDS ── */
   .mg{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -76,6 +101,13 @@
   .ml{list-style:none;display:flex;flex-direction:column;gap:5px;}
   .ml li{font-size:12px;color:var(--text);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
   .mi{font-size:11px;flex-shrink:0;margin-top:1px;}
+
+  /* ── CHECKABLE ITEMS ── */
+  .chk{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:opacity .2s;}
+  .chk.done{opacity:0.45;text-decoration:line-through;}
+  .chk-box{width:18px;height:18px;border-radius:50%;border:2px solid var(--blush);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:10px;color:white;}
+  .chk.done .chk-box{background:var(--rose);border-color:var(--rose);}
+  .chk-label{font-size:13px;color:var(--text);line-height:1.4;}
 
   /* ── RACE CARDS ── */
   .race-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -115,7 +147,6 @@
   .emb-card{background:white;border-radius:20px;padding:28px;border:1px solid var(--border);margin-top:18px;}
   .emb-card .ft{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:8px;}
   .emb-card .fd{font-size:13px;color:var(--text);line-height:1.7;}
-
   .fund-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
   @media(max-width:640px){.fund-row{grid-template-columns:1fr;}}
   .fund-card{background:white;border-radius:20px;padding:22px;border:1px solid var(--border);}
@@ -147,20 +178,18 @@
   .c-prog{background:#fff5e6;color:#c4943a;}
   .c-start{background:#eef2fa;color:#7a8fb8;}
 
-  /* ── LIFESTYLE PILLS ── */
+  /* ── LIFESTYLE PILLS (checkable) ── */
   .life-grid{display:flex;flex-wrap:wrap;gap:10px;}
-  .life-pill{background:white;border:1px solid var(--border);border-radius:40px;padding:10px 18px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:var(--text);transition:transform .15s;}
+  .life-pill{background:white;border:1px solid var(--border);border-radius:40px;padding:10px 18px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:var(--text);transition:all .2s;cursor:pointer;user-select:none;}
   .life-pill:hover{transform:scale(1.03);}
+  .life-pill.checked{background:var(--rose);color:white;border-color:var(--rose);}
+  .life-pill.checked span{filter:brightness(10);}
 
   /* ── FOOTER ── */
   footer{padding:48px 40px;text-align:center;border-top:1px solid var(--border);margin-top:20px;}
   .fn{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);}
   .fn em{font-style:italic;color:var(--rose);}
   .fd2{font-size:11px;color:var(--text-faint);margin-top:6px;}
-
-  /* ── ANIM ── */
-  @keyframes su{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .hd,.section,footer{animation:su .6s ease both;}
 </style>
 </head>
 <body>
@@ -174,6 +203,10 @@
 <div class="hd" id="top">
   <div class="hd-date">Updated March 18, 2026</div>
   <h1>2026 <em>Vision Board</em></h1>
+  <div class="progress-wrap">
+    <div class="progress-text"><span id="done-count">0</span> of <span id="total-count">0</span> goals checked off</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
   <div class="banner">
     <img src="images/italy.jpg" alt="Italy">
     <img src="images/marathon.jpg" alt="Marathon">
@@ -200,201 +233,150 @@
 
 <!-- ══ MONTHLY ROADMAP ══ -->
 <div class="section" id="roadmap">
-  <div class="section-label">the plan</div>
-  <h2>Month by <em>Month</em></h2>
+  <div class="section-label reveal">the plan</div>
+  <h2 class="reveal">Month by <em>Month</em></h2>
   <div class="mg">
-    <div class="mc now"><div class="mc-tag">Now</div><div class="mc-name">March</div><div class="mc-theme">Ignition month. Everything starts.</div><ul class="ml"><li><span class="mi">✅</span>ML Cert passed · Resume updated</li><li><span class="mi">✅</span>Hyrox registered · NYC Marathon confirmed</li><li><span class="mi">🎯</span>Embroidery site live by Mar 31</li><li><span class="mi">🎯</span>Job search + interview prep begins</li></ul></div>
+    <div class="mc now reveal"><div class="mc-tag">Now</div><div class="mc-name">March</div><div class="mc-theme">Ignition month. Everything starts.</div><ul class="ml"><li><span class="mi">✅</span>ML Cert passed · Resume updated</li><li><span class="mi">✅</span>Hyrox registered · NYC Marathon confirmed</li><li><span class="mi">🎯</span>Embroidery site live by Mar 31</li><li><span class="mi">🎯</span>Job search + interview prep begins</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">April</div><div class="mc-name">April</div><div class="mc-theme">Apply hard. Train hard.</div><ul class="ml"><li><span class="mi">🎯</span>5–8 job applications/week</li><li><span class="mi">🎯</span>Hyrox training 3x/week + 3 runs</li><li><span class="mi">🎯</span>Embroidery: 15+ products live</li><li><span class="mi">🎯</span>2+ NYC ML/AI meetups</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">April</div><div class="mc-name">April</div><div class="mc-theme">Apply hard. Train hard.</div><ul class="ml"><li><span class="mi">🎯</span>5–8 job applications/week</li><li><span class="mi">🎯</span>Hyrox training 3x/week + 3 runs</li><li><span class="mi">🎯</span>Embroidery: 15+ products live</li><li><span class="mi">🎯</span>2+ NYC ML/AI meetups</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">May</div><div class="mc-name">May</div><div class="mc-theme">Race + offer.</div><ul class="ml"><li><span class="mi">⭐</span>NYC Hyrox — May 30</li><li><span class="mi">🎯</span>Offer in hand or final rounds</li><li><span class="mi">🧠</span>Fundraising pages live</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">May</div><div class="mc-name">May</div><div class="mc-theme">Race + offer.</div><ul class="ml"><li><span class="mi">⭐</span>NYC Hyrox — May 30</li><li><span class="mi">🎯</span>Offer in hand or final rounds</li><li><span class="mi">🧠</span>Fundraising pages live</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">June</div><div class="mc-name">June</div><div class="mc-theme">New job. Build Reen.</div><ul class="ml"><li><span class="mi">⭐</span>New job begins</li><li><span class="mi">🌿</span>Reen: scope + start build</li><li><span class="mi">🎯</span>Half Ironman base training</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">June</div><div class="mc-name">June</div><div class="mc-theme">New job. Build Reen.</div><ul class="ml"><li><span class="mi">⭐</span>New job begins</li><li><span class="mi">🌿</span>Reen: scope + start build</li><li><span class="mi">🎯</span>Half Ironman base training</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">July</div><div class="mc-name">July</div><div class="mc-theme">Italy. Ship Reen. Marathon starts.</div><ul class="ml"><li><span class="mi">🇮🇹</span>Italy birthday trip</li><li><span class="mi">🏃‍♀️</span>NYC Marathon 16-week plan begins</li><li><span class="mi">🌿</span>Reen: build phase</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">July</div><div class="mc-name">July</div><div class="mc-theme">Italy. Ship Reen. Marathon starts.</div><ul class="ml"><li><span class="mi">🇮🇹</span>Italy birthday trip</li><li><span class="mi">🏃‍♀️</span>NYC Marathon 16-week plan begins</li><li><span class="mi">🌿</span>Reen: build phase</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">August</div><div class="mc-name">August</div><div class="mc-theme">Launch Reen. Train for everything.</div><ul class="ml"><li><span class="mi">⭐</span>Reen submitted to App Store</li><li><span class="mi">🎯</span>Half Ironman peak + Marathon build</li><li><span class="mi">🗽</span>NYC Running app: start build</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">August</div><div class="mc-name">August</div><div class="mc-theme">Launch Reen. Train for everything.</div><ul class="ml"><li><span class="mi">⭐</span>Reen submitted to App Store</li><li><span class="mi">🎯</span>Half Ironman peak + Marathon build</li><li><span class="mi">🗽</span>NYC Running app: start build</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">September</div><div class="mc-name">September</div><div class="mc-theme">Half Ironman. Marathon peak.</div><ul class="ml"><li><span class="mi">⭐</span>Half Ironman race day</li><li><span class="mi">🎯</span>NYC Marathon peak training</li><li><span class="mi">🗽</span>NYC Running app: submit</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">September</div><div class="mc-name">September</div><div class="mc-theme">Half Ironman. Marathon peak.</div><ul class="ml"><li><span class="mi">⭐</span>Half Ironman race day</li><li><span class="mi">🎯</span>NYC Marathon peak training</li><li><span class="mi">🗽</span>NYC Running app: submit</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">October</div><div class="mc-name">October</div><div class="mc-theme">Peak training. Two app launches.</div><ul class="ml"><li><span class="mi">⭐</span>NYC Running app launches</li><li><span class="mi">🥦</span>Smart Fridge AI: submit</li><li><span class="mi">🎯</span>Marathon taper begins Oct 20</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">October</div><div class="mc-name">October</div><div class="mc-theme">Peak training. Two app launches.</div><ul class="ml"><li><span class="mi">⭐</span>NYC Running app launches</li><li><span class="mi">🥦</span>Smart Fridge AI: submit</li><li><span class="mi">🎯</span>Marathon taper begins Oct 20</li></ul></div>
 
-    <div class="mc big"><div class="mc-tag">The Big One</div><div class="mc-name">November</div><div class="mc-theme">Race day. Everything else waits.</div><ul class="ml"><li><span class="mi">⭐</span>NYC MARATHON — November 1</li><li><span class="mi">⭐</span>Smart Fridge AI launches</li><li><span class="mi">🧠</span>Biggest CaringKind fundraising moment</li><li><span class="mi">🏃‍♀️</span>Tokyo rebuild begins Nov 15</li></ul></div>
+    <div class="mc big reveal"><div class="mc-tag">The Big One</div><div class="mc-name">November</div><div class="mc-theme">Race day. Everything else waits.</div><ul class="ml"><li><span class="mi">⭐</span>NYC MARATHON — November 1</li><li><span class="mi">⭐</span>Smart Fridge AI launches</li><li><span class="mi">🧠</span>Biggest CaringKind fundraising moment</li><li><span class="mi">🏃‍♀️</span>Tokyo rebuild begins Nov 15</li></ul></div>
 
-    <div class="mc"><div class="mc-tag">December</div><div class="mc-name">December</div><div class="mc-theme">Recover. Rebuild. Close the year.</div><ul class="ml"><li><span class="mi">🌸</span>Tokyo 11-week plan begins Dec 15</li><li><span class="mi">🌸</span>PoP: $7,500 fully raised</li><li><span class="mi">🎯</span>Year-in-review + 2027 Vision Board</li></ul></div>
+    <div class="mc reveal"><div class="mc-tag">December</div><div class="mc-name">December</div><div class="mc-theme">Recover. Rebuild. Close the year.</div><ul class="ml"><li><span class="mi">🌸</span>Tokyo 11-week plan begins Dec 15</li><li><span class="mi">🌸</span>PoP: $7,500 fully raised</li><li><span class="mi">🎯</span>Year-in-review + 2027 Vision Board</li></ul></div>
   </div>
 </div>
 
 <!-- ══ FITNESS ══ -->
 <div class="section" id="fitness">
-  <div class="section-label">race season</div>
-  <h2>The <em>Finish Lines</em></h2>
+  <div class="section-label reveal">race season</div>
+  <h2 class="reveal">The <em>Finish Lines</em></h2>
 
   <div class="race-grid">
-    <div class="race-card">
-      <div class="rc-date">May 30, 2026</div>
-      <div class="rc-name">NYC Hyrox</div>
-      <div class="rc-status">✓ Registered</div>
-      <div class="rc-accent">🏋️</div>
-    </div>
-    <div class="race-card">
-      <div class="rc-date">Sep / Oct 2026</div>
-      <div class="rc-name">Half Ironman</div>
-      <div class="rc-status pending">Register by May</div>
-      <div class="rc-accent">🚴</div>
-    </div>
-    <div class="race-card">
-      <div class="rc-date">November 1, 2026</div>
-      <div class="rc-name">NYC Marathon</div>
-      <div class="rc-goal">CaringKind · Fundraise $5,000+</div>
-      <div class="rc-status">✓ Confirmed</div>
-      <div class="rc-accent">🧠</div>
-    </div>
-    <div class="race-card">
-      <div class="rc-date">March 1, 2027</div>
-      <div class="rc-name">Tokyo Marathon</div>
-      <div class="rc-goal">Pencils of Promise · Raise $7,500</div>
-      <div class="rc-status">✓ Confirmed</div>
-      <div class="rc-accent">🌸</div>
-    </div>
+    <div class="race-card reveal"><div class="rc-date">May 30, 2026</div><div class="rc-name">NYC Hyrox</div><div class="rc-status">✓ Registered</div><div class="rc-accent">🏋️</div></div>
+    <div class="race-card reveal"><div class="rc-date">Sep / Oct 2026</div><div class="rc-name">Half Ironman</div><div class="rc-status pending">Register by May</div><div class="rc-accent">🚴</div></div>
+    <div class="race-card reveal"><div class="rc-date">November 1, 2026</div><div class="rc-name">NYC Marathon</div><div class="rc-goal">CaringKind · Fundraise $5,000+</div><div class="rc-status">✓ Confirmed</div><div class="rc-accent">🧠</div></div>
+    <div class="race-card reveal"><div class="rc-date">March 1, 2027</div><div class="rc-name">Tokyo Marathon</div><div class="rc-goal">Pencils of Promise · Raise $7,500</div><div class="rc-status">✓ Confirmed</div><div class="rc-accent">🌸</div></div>
   </div>
 
-  <div class="phases">
-    <div class="ph">
-      <div class="ph-icon">🏋️</div>
-      <div class="ph-name">Hyrox</div>
-      <div class="ph-dates">Mar–May</div>
-    </div>
-    <div class="ph">
-      <div class="ph-icon">🏊</div>
-      <div class="ph-name">Half Ironman</div>
-      <div class="ph-dates">Jun–Sep</div>
-    </div>
-    <div class="ph">
-      <div class="ph-icon">🏃‍♀️</div>
-      <div class="ph-name">NYC Marathon</div>
-      <div class="ph-dates">Jul–Nov</div>
-    </div>
-    <div class="ph">
-      <div class="ph-icon">🔄</div>
-      <div class="ph-name">Recovery</div>
-      <div class="ph-dates">Nov–Dec</div>
-    </div>
-    <div class="ph">
-      <div class="ph-icon">🌸</div>
-      <div class="ph-name">Tokyo</div>
-      <div class="ph-dates">Dec–Mar</div>
+  <div class="phases reveal">
+    <div class="ph"><div class="ph-icon">🏋️</div><div class="ph-name">Hyrox</div><div class="ph-dates">Mar–May</div></div>
+    <div class="ph"><div class="ph-icon">🏊</div><div class="ph-name">Half Ironman</div><div class="ph-dates">Jun–Sep</div></div>
+    <div class="ph"><div class="ph-icon">🏃‍♀️</div><div class="ph-name">NYC Marathon</div><div class="ph-dates">Jul–Nov</div></div>
+    <div class="ph"><div class="ph-icon">🔄</div><div class="ph-name">Recovery</div><div class="ph-dates">Nov–Dec</div></div>
+    <div class="ph"><div class="ph-icon">🌸</div><div class="ph-name">Tokyo</div><div class="ph-dates">Dec–Mar</div></div>
+  </div>
+
+  <div style="margin-top:28px;" class="reveal">
+    <div class="section-label">goal checklist</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+      <div class="chk" data-id="g-hyrox"><div class="chk-box"></div><div class="chk-label">Complete NYC Hyrox</div></div>
+      <div class="chk" data-id="g-ironman"><div class="chk-box"></div><div class="chk-label">Finish Half Ironman</div></div>
+      <div class="chk" data-id="g-nycmarathon"><div class="chk-box"></div><div class="chk-label">Run NYC Marathon for CaringKind</div></div>
+      <div class="chk" data-id="g-tokyomarathon"><div class="chk-box"></div><div class="chk-label">Run Tokyo Marathon for Pencils of Promise</div></div>
+      <div class="chk" data-id="g-boxing"><div class="chk-box"></div><div class="chk-label">Start boxing</div></div>
+      <div class="chk" data-id="g-handstand"><div class="chk-box"></div><div class="chk-label">Handstand to sit</div></div>
     </div>
   </div>
 </div>
 
 <!-- ══ BUSINESS ══ -->
 <div class="section" id="business">
-  <div class="section-label">building things</div>
-  <h2>Apps + <em>Embroidery</em></h2>
+  <div class="section-label reveal">building things</div>
+  <h2 class="reveal">Apps + <em>Embroidery</em></h2>
 
   <div class="apps-grid">
-    <div class="app-card">
-      <div class="app-icon">🌿</div>
-      <div class="app-name">Reen</div>
-      <div class="app-tagline">Women's health, done right.</div>
-      <ul class="app-features">
-        <li>Cycle + symptom tracking with AI</li>
-        <li>Personalized health insights</li>
-        <li>Nurse-informed content</li>
-        <li>Mental + physical health integration</li>
-      </ul>
-      <div class="app-timeline">Build: Jun–Jul · Launch: Sep 2026</div>
-      <div class="app-corner">🌿</div>
-    </div>
-    <div class="app-card">
-      <div class="app-icon">🗽</div>
-      <div class="app-name">NYC Running</div>
-      <div class="app-tagline">By an NYC runner, for NYC runners.</div>
-      <ul class="app-features">
-        <li>Curated routes + real-time conditions</li>
-        <li>Run club finder</li>
-        <li>NYC marathon training plans</li>
-        <li>Charity run integration</li>
-      </ul>
-      <div class="app-timeline">Build: Jul–Aug · Launch: Oct 2026</div>
-      <div class="app-corner">🗽</div>
-    </div>
-    <div class="app-card">
-      <div class="app-icon">🥦</div>
-      <div class="app-name">Smart Fridge AI</div>
-      <div class="app-tagline">What's in your fridge? Let's cook.</div>
-      <ul class="app-features">
-        <li>Scan fridge → get recipes</li>
-        <li>Expiry-based meal suggestions</li>
-        <li>Learns your preferences</li>
-        <li>Grocery list generation</li>
-      </ul>
-      <div class="app-timeline">Build: Aug–Sep · Launch: Nov 2026</div>
-      <div class="app-corner">🥦</div>
-    </div>
+    <div class="app-card reveal"><div class="app-icon">🌿</div><div class="app-name">Reen</div><div class="app-tagline">Women's health, done right.</div><ul class="app-features"><li>Cycle + symptom tracking with AI</li><li>Personalized health insights</li><li>Nurse-informed content</li><li>Mental + physical health integration</li></ul><div class="app-timeline">Build: Jun–Jul · Launch: Sep 2026</div><div class="app-corner">🌿</div></div>
+    <div class="app-card reveal"><div class="app-icon">🗽</div><div class="app-name">NYC Running</div><div class="app-tagline">By an NYC runner, for NYC runners.</div><ul class="app-features"><li>Curated routes + real-time conditions</li><li>Run club finder</li><li>NYC marathon training plans</li><li>Charity run integration</li></ul><div class="app-timeline">Build: Jul–Aug · Launch: Oct 2026</div><div class="app-corner">🗽</div></div>
+    <div class="app-card reveal"><div class="app-icon">🥦</div><div class="app-name">Smart Fridge AI</div><div class="app-tagline">What's in your fridge? Let's cook.</div><ul class="app-features"><li>Scan fridge → get recipes</li><li>Expiry-based meal suggestions</li><li>Learns your preferences</li><li>Grocery list generation</li></ul><div class="app-timeline">Build: Aug–Sep · Launch: Nov 2026</div><div class="app-corner">🥦</div></div>
   </div>
 
-  <div class="emb-card">
+  <div class="emb-card reveal">
     <div class="ft">🧵 Embroidery — 100% profits to charity</div>
     <div class="fd">Themed drops tied to each race. Every purchase funds CaringKind and Pencils of Promise. Site launching March 31.</div>
   </div>
 
   <div class="fund-row">
-    <div class="fund-card">
-      <div class="ft">🧠 CaringKind</div>
-      <div class="fd">NYC Marathon · Alzheimer's caregiver support</div>
-      <div class="fb">Raise $5,000+</div>
-    </div>
-    <div class="fund-card">
-      <div class="ft">🌸 Pencils of Promise</div>
-      <div class="fd">Tokyo Marathon · Global education access</div>
-      <div class="fb">Raise $7,500</div>
+    <div class="fund-card reveal"><div class="ft">🧠 CaringKind</div><div class="fd">NYC Marathon · Alzheimer's caregiver support</div><div class="fb">Raise $5,000+</div></div>
+    <div class="fund-card reveal"><div class="ft">🌸 Pencils of Promise</div><div class="fd">Tokyo Marathon · Global education access</div><div class="fb">Raise $7,500</div></div>
+  </div>
+
+  <div style="margin-top:28px;" class="reveal">
+    <div class="section-label">goal checklist</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+      <div class="chk" data-id="g-reen"><div class="chk-box"></div><div class="chk-label">Launch Reen on App Store</div></div>
+      <div class="chk" data-id="g-nycrun"><div class="chk-box"></div><div class="chk-label">Launch NYC Running app</div></div>
+      <div class="chk" data-id="g-fridge"><div class="chk-box"></div><div class="chk-label">Launch Smart Fridge AI</div></div>
+      <div class="chk" data-id="g-embsite"><div class="chk-box"></div><div class="chk-label">Embroidery site live</div></div>
+      <div class="chk" data-id="g-ck5k"><div class="chk-box"></div><div class="chk-label">Raise $5,000 for CaringKind</div></div>
+      <div class="chk" data-id="g-pop75"><div class="chk-box"></div><div class="chk-label">Raise $7,500 for Pencils of Promise</div></div>
     </div>
   </div>
 </div>
 
 <!-- ══ CAREER ══ -->
 <div class="section" id="career">
-  <div class="section-label">next chapter</div>
-  <h2>DS/ML Engineer, <em>NYC</em></h2>
-  <div class="jh">
+  <div class="section-label reveal">next chapter</div>
+  <h2 class="reveal">DS/ML Engineer, <em>NYC</em></h2>
+  <div class="jh reveal">
     <div class="jbadge">🎯 $150K–$220K+ TC</div>
     <div class="jbadge">⏰ Offer by May–June</div>
   </div>
-  <div class="tg" style="margin-bottom:20px;">
+  <div class="tg reveal" style="margin-bottom:20px;">
     <div class="tc"><div class="ti">🏆</div><div class="tt"><h4>Google ML Certification</h4><div class="chip c-done">✓ Passed</div><div class="tn">March 3, 2026</div></div></div>
     <div class="tc"><div class="ti">📄</div><div class="tt"><h4>Resume + LinkedIn</h4><div class="chip c-done">✓ Done</div></div></div>
     <div class="tc"><div class="ti">💼</div><div class="tt"><h4>Job Applications</h4><div class="chip c-prog">In Progress</div><div class="tn">5–8 per week</div></div></div>
     <div class="tc"><div class="ti">📝</div><div class="tt"><h4>Medium Blog Posts</h4><div class="chip c-start">Starting</div><div class="tn">ML/AI writing</div></div></div>
   </div>
-  <div class="cc">
+  <div class="cc reveal">
     <div class="ccol"><h4>Big Tech + Fintech</h4><ul><li>Google · Meta · Amazon</li><li>Apple · Microsoft · Bloomberg</li><li>Stripe · Square · Plaid</li><li>Two Sigma · Citadel</li><li>Jane Street · DE Shaw · Point72</li></ul></div>
     <div class="ccol"><h4>AI-Native + Health Tech</h4><ul><li>OpenAI · Anthropic · Cohere</li><li>Hugging Face</li><li>Flatiron Health · Noom</li><li>Oscar Health · Ro</li></ul></div>
     <div class="ccol"><h4>NYC Tech + Startups</h4><ul><li>Spotify · Datadog · MongoDB</li><li>Etsy · Peloton · NYT</li><li>Series B–D AI/ML startups</li><li>Wellfound + LinkedIn</li></ul></div>
+  </div>
+
+  <div style="margin-top:28px;" class="reveal">
+    <div class="section-label">goal checklist</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+      <div class="chk" data-id="g-mlcert"><div class="chk-box"></div><div class="chk-label">Google ML Certification</div></div>
+      <div class="chk" data-id="g-resume"><div class="chk-box"></div><div class="chk-label">Resume + LinkedIn updated</div></div>
+      <div class="chk" data-id="g-job"><div class="chk-box"></div><div class="chk-label">Land DS/ML job</div></div>
+      <div class="chk" data-id="g-medium"><div class="chk-box"></div><div class="chk-label">Publish Medium blog posts</div></div>
+    </div>
   </div>
 </div>
 
 <!-- ══ LIFESTYLE ══ -->
 <div class="section" id="lifestyle">
-  <div class="section-label">the full picture</div>
-  <h2>Lifestyle + <em>Enrichment</em></h2>
-  <div class="life-grid">
-    <div class="life-pill"><span>🚫</span> No alcohol — full year</div>
-    <div class="life-pill"><span>📵</span> No phone in bedroom</div>
-    <div class="life-pill"><span>⏱️</span> Screen time limits</div>
-    <div class="life-pill"><span>🥊</span> Boxing</div>
-    <div class="life-pill"><span>🇮🇹</span> Italy birthday trip</div>
-    <div class="life-pill"><span>🎥</span> YouTube + TikTok</div>
-    <div class="life-pill"><span>✍️</span> Fashion Substack</div>
-    <div class="life-pill"><span>🤸</span> Handstand to sit</div>
-    <div class="life-pill"><span>🏺</span> Pottery</div>
-    <div class="life-pill"><span>🎨</span> Painting</div>
-    <div class="life-pill"><span>🪡</span> Sewing</div>
-    <div class="life-pill"><span>💐</span> Floral arrangements</div>
-    <div class="life-pill"><span>🎂</span> Cute cakes</div>
-    <div class="life-pill"><span>🥯</span> Sourdough bagels</div>
-    <div class="life-pill"><span>🎉</span> Event planning</div>
+  <div class="section-label reveal">the full picture</div>
+  <h2 class="reveal">Lifestyle + <em>Enrichment</em></h2>
+  <p class="reveal" style="font-family:'Caveat',cursive;font-size:16px;color:var(--terracotta);margin-bottom:16px;">tap to check off</p>
+  <div class="life-grid reveal">
+    <div class="life-pill" data-id="l-alcohol"><span>🚫</span> No alcohol — full year</div>
+    <div class="life-pill" data-id="l-phone"><span>📵</span> No phone in bedroom</div>
+    <div class="life-pill" data-id="l-screen"><span>⏱️</span> Screen time limits</div>
+    <div class="life-pill" data-id="l-boxing"><span>🥊</span> Boxing</div>
+    <div class="life-pill" data-id="l-italy"><span>🇮🇹</span> Italy birthday trip</div>
+    <div class="life-pill" data-id="l-youtube"><span>🎥</span> YouTube + TikTok</div>
+    <div class="life-pill" data-id="l-substack"><span>✍️</span> Fashion Substack</div>
+    <div class="life-pill" data-id="l-handstand"><span>🤸</span> Handstand to sit</div>
+    <div class="life-pill" data-id="l-pottery"><span>🏺</span> Pottery</div>
+    <div class="life-pill" data-id="l-painting"><span>🎨</span> Painting</div>
+    <div class="life-pill" data-id="l-sewing"><span>🪡</span> Sewing</div>
+    <div class="life-pill" data-id="l-floral"><span>💐</span> Floral arrangements</div>
+    <div class="life-pill" data-id="l-cakes"><span>🎂</span> Cute cakes</div>
+    <div class="life-pill" data-id="l-sourdough"><span>🥯</span> Sourdough bagels</div>
+    <div class="life-pill" data-id="l-events"><span>🎉</span> Event planning</div>
   </div>
 </div>
 
@@ -408,9 +390,56 @@
 <button class="btt" onclick="window.scrollTo({top:0})">↑</button>
 
 <script>
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Back to top ──
 window.addEventListener('scroll', () => {
   document.querySelector('.btt').classList.toggle('show', window.scrollY > 400);
 });
+
+// ── Checkbox persistence ──
+const saved = JSON.parse(localStorage.getItem('vb-checks') || '{}');
+
+function updateProgress() {
+  const all = document.querySelectorAll('.chk, .life-pill[data-id]');
+  const done = document.querySelectorAll('.chk.done, .life-pill.checked');
+  document.getElementById('done-count').textContent = done.length;
+  document.getElementById('total-count').textContent = all.length;
+  const pct = all.length ? (done.length / all.length * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// Checkboxes
+document.querySelectorAll('.chk').forEach(el => {
+  const id = el.dataset.id;
+  if (saved[id]) { el.classList.add('done'); el.querySelector('.chk-box').textContent = '✓'; }
+  el.addEventListener('click', () => {
+    el.classList.toggle('done');
+    const isDone = el.classList.contains('done');
+    el.querySelector('.chk-box').textContent = isDone ? '✓' : '';
+    saved[id] = isDone;
+    localStorage.setItem('vb-checks', JSON.stringify(saved));
+    updateProgress();
+  });
+});
+
+// Lifestyle pills
+document.querySelectorAll('.life-pill[data-id]').forEach(el => {
+  const id = el.dataset.id;
+  if (saved[id]) el.classList.add('checked');
+  el.addEventListener('click', () => {
+    el.classList.toggle('checked');
+    saved[id] = el.classList.contains('checked');
+    localStorage.setItem('vb-checks', JSON.stringify(saved));
+    updateProgress();
+  });
+});
+
+updateProgress();
 </script>
 </body>
 </html>
