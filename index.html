@@ -37,10 +37,12 @@
   .hd-date{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-faint);margin-bottom:24px;}
   .hd h1{font-family:'Playfair Display',serif;font-size:clamp(40px,8vw,80px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:16px;color:var(--ink);}
   .hd h1 em{font-style:italic;color:var(--rose);}
-  .hd-quote{font-family:'Caveat',cursive;font-size:clamp(20px,4vw,28px);color:var(--terracotta);margin-top:12px;line-height:1.4;}
-  .hd-wins{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:32px;}
-  .hw{background:white;border:1px solid var(--border);border-radius:40px;padding:8px 16px;font-size:12px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;}
-  .hw-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  /* ── PHOTO BANNER ── */
+  .banner{display:flex;gap:10px;padding:0 40px;margin-top:32px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+  .banner::-webkit-scrollbar{display:none;}
+  .banner img{width:120px;height:120px;object-fit:cover;border-radius:14px;flex-shrink:0;transition:transform .2s;}
+  .banner img:hover{transform:scale(1.05);}
+  @media(max-width:640px){.banner{padding:0 24px;gap:8px;}.banner img{width:90px;height:90px;border-radius:10px;}}
 
   /* ── NAV ── */
   .nav{position:sticky;top:0;z-index:100;background:rgba(253,248,243,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:14px 40px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
@@ -172,12 +174,18 @@
 <div class="hd" id="top">
   <div class="hd-date">Updated March 18, 2026</div>
   <h1>2026 <em>Vision Board</em></h1>
-  <div class="hd-wins">
-    <div class="hw"><div class="hw-dot" style="background:var(--rose)"></div>NYC Marathon — CaringKind</div>
-    <div class="hw"><div class="hw-dot" style="background:var(--gold)"></div>Google ML Cert — Passed</div>
-    <div class="hw"><div class="hw-dot" style="background:var(--sage)"></div>Hyrox — Registered</div>
-    <div class="hw"><div class="hw-dot" style="background:var(--lavender)"></div>Tokyo 2027 — Confirmed</div>
-    <div class="hw"><div class="hw-dot" style="background:var(--peach)"></div>3 Apps Launching</div>
+  <div class="banner">
+    <img src="images/italy.jpg" alt="Italy">
+    <img src="images/marathon.jpg" alt="Marathon">
+    <img src="images/flowers.jpg" alt="Flowers">
+    <img src="images/embroidery.jpg" alt="Embroidery">
+    <img src="images/tokyo.jpg" alt="Tokyo">
+    <img src="images/painting.jpg" alt="Painting">
+    <img src="images/cake.jpg" alt="Cake">
+    <img src="images/sourdough.jpg" alt="Sourdough">
+    <img src="images/mediterranean.jpg" alt="Mediterranean">
+    <img src="images/runner.jpg" alt="Runner">
+    <img src="images/dining.jpg" alt="Dining">
   </div>
 </div>
 
