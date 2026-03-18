@@ -11,15 +11,12 @@
     --pink:#ff3d85; --bubblegum:#ff85b8;
     --lemon:#ffe034; --sky:#5bc8f5;
     --mint:#3de8b0; --lilac:#c8a8ff;
-    --coral:#ff7055; --peach:#ffd4b8;
-    --pale-pink:#fff0f6; --pale-yellow:#fffbe0;
-    --pale-sky:#eaf8ff; --pale-mint:#e8fff7;
-    --pale-lilac:#f4efff;
     --border:rgba(26,17,24,0.08);
     --text-dim:rgba(26,17,24,0.55);
     --text-faint:rgba(26,17,24,0.35);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{background:var(--off-white);color:var(--ink);font-family:'Bricolage Grotesque',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden;}
 
   .blob-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
@@ -32,7 +29,7 @@
   .wrap{position:relative;z-index:1;}
 
   /* ── HEADER ── */
-  .hd{padding:80px 48px 32px;position:relative;z-index:1;overflow:hidden;}
+  .hd{padding:80px 48px 32px;}
   .hd-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:white;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:6px 14px;border-radius:40px;margin-bottom:28px;}
   .hd h1{font-family:'Syne',sans-serif;font-size:clamp(52px,9vw,116px);font-weight:800;line-height:0.92;letter-spacing:-0.03em;margin-bottom:24px;}
   .l1{color:var(--ink);}
@@ -42,25 +39,24 @@
   .hp{display:flex;align-items:center;gap:6px;background:white;border:1.5px solid var(--border);border-radius:40px;padding:7px 14px;font-size:12px;font-weight:500;}
   .dot{width:8px;height:8px;border-radius:50%;}
 
-  /* ── TABS ── */
-  .tab-bar{position:sticky;top:0;z-index:100;background:rgba(254,249,244,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:14px 48px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1.5px solid var(--border);}
-  .tab{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:8px 18px;border-radius:40px;border:1.5px solid var(--border);background:white;color:var(--text-dim);cursor:pointer;transition:all .15s;white-space:nowrap;}
-  .tab:hover{border-color:rgba(255,61,133,0.3);color:var(--ink);}
-  .tab.active{background:var(--pink);color:white;border-color:var(--pink);}
-  @media(max-width:640px){.tab-bar{padding:12px 16px;gap:6px;}.tab{font-size:11px;padding:7px 14px;}}
+  /* ── NAV ── */
+  .nav{position:sticky;top:0;z-index:100;background:rgba(254,249,244,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:14px 48px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1.5px solid var(--border);}
+  .nav a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:8px 18px;border-radius:40px;border:1.5px solid var(--border);background:white;color:var(--text-dim);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;}
+  .nav a:hover{border-color:rgba(255,61,133,0.3);color:var(--ink);background:var(--off-white);}
+  @media(max-width:640px){.nav{padding:12px 16px;gap:6px;}.nav a{font-size:11px;padding:7px 14px;}.hd{padding:60px 20px 24px;}}
 
-  /* ── TAB CONTENT ── */
-  .tab-content{display:none;}
-  .tab-content.active{display:block;animation:su .35s ease both;}
+  /* ── BACK TO TOP ── */
+  .btt{position:fixed;bottom:28px;right:28px;z-index:200;width:44px;height:44px;border-radius:50%;background:var(--pink);color:white;border:none;font-size:18px;cursor:pointer;box-shadow:0 4px 16px rgba(255,61,133,0.35);transition:opacity .2s,transform .2s;opacity:0;transform:translateY(10px);pointer-events:none;display:flex;align-items:center;justify-content:center;}
+  .btt.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+  .btt:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,61,133,0.45);}
 
-  /* ── SHARED ── */
-  .sw{padding:60px 48px;position:relative;z-index:1;}
+  /* ── SECTIONS ── */
+  .section{padding:60px 48px;}
+  .section-divider{width:60px;height:3px;background:var(--pink);border-radius:3px;margin-bottom:16px;}
   .ey{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--pink);margin-bottom:10px;}
   h2{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-bottom:28px;}
   h2 .a{color:var(--pink);}
-  .card{background:white;border-radius:16px;padding:22px;border:1.5px solid var(--border);transition:transform .15s,box-shadow .15s;}
-  .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
-  @media(max-width:640px){.sw{padding:40px 20px;}}
+  @media(max-width:640px){.section{padding:40px 20px;}}
 
   /* ── STATUS CHIPS ── */
   .chip{display:inline-flex;align-items:center;gap:4px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-top:4px;}
@@ -69,14 +65,7 @@
   .c-start{background:#eef4ff;color:#5b7dd8;}
   .c-new{background:#ffe8f3;color:var(--pink);}
 
-  /* ── NEW BANNER ── */
-  .nb{background:linear-gradient(135deg,#ff3d85,#ff85b8);color:white;border-radius:16px;padding:22px 26px;margin-bottom:22px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;}
-  .nb::before{content:'✦';position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:48px;opacity:0.15;}
-  .nb-icon{font-size:30px;flex-shrink:0;}
-  .nb h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:2px;color:white;}
-  .nb p{font-size:12px;opacity:0.85;line-height:1.5;}
-
-  /* ── TRACKER ── */
+  /* ── TRACKER GRID ── */
   .tg{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media(max-width:640px){.tg{grid-template-columns:1fr;}}
   .tc{background:white;border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px;border:1.5px solid var(--border);transition:transform .15s,box-shadow .15s;}
@@ -85,49 +74,6 @@
   .ti{font-size:20px;flex-shrink:0;margin-top:1px;}
   .tt h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;line-height:1.3;margin-bottom:3px;}
   .tn{font-size:11px;color:var(--text-faint);margin-top:2px;}
-
-  /* ── TIERS ── */
-  .tier-g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-  @media(max-width:700px){.tier-g{grid-template-columns:1fr 1fr;}}
-  .tier{border-radius:16px;padding:20px 16px;border:1.5px solid var(--border);}
-  .tier:nth-child(1){background:linear-gradient(160deg,#fff0f6,#ffe4ee);}
-  .tier:nth-child(2){background:linear-gradient(160deg,#fffbe0,#fff3b8);}
-  .tier:nth-child(3){background:linear-gradient(160deg,#eaf8ff,#d0efff);}
-  .tier:nth-child(4){background:linear-gradient(160deg,#f4efff,#ece3ff);}
-  .tier-n{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;line-height:1;margin-bottom:5px;opacity:0.18;}
-  .tier-l{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;}
-  .tier:nth-child(1) .tier-l{color:var(--pink);}
-  .tier:nth-child(2) .tier-l{color:#d4900a;}
-  .tier:nth-child(3) .tier-l{color:#0084b4;}
-  .tier:nth-child(4) .tier-l{color:#8b5cf6;}
-  .tier-items{list-style:none;}
-  .tier-items li{font-size:11px;color:var(--text-dim);padding:3px 0;line-height:1.4;}
-
-  /* ── HABITS ── */
-  .hab-row{display:flex;flex-wrap:wrap;gap:12px;}
-  .hab{background:white;border:1.5px solid var(--border);border-radius:40px;padding:11px 20px;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;transition:transform .12s;}
-  .hab:hover{transform:scale(1.03);}
-
-  /* ── TRAINING SCHEDULE ── */
-  .train-phases{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
-  .phase{border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:16px;}
-  .phase-hyrox  {background:linear-gradient(135deg,#fffbe0,#ffefc8);}
-  .phase-iron   {background:linear-gradient(135deg,#eaf8ff,#cceeff);}
-  .phase-nyc    {background:linear-gradient(135deg,#fff0f6,#ffd4e8);border:1.5px solid rgba(255,61,133,0.2);}
-  .phase-bridge {background:linear-gradient(135deg,#e8fff7,#c8f7e8);}
-  .phase-tokyo  {background:linear-gradient(135deg,#f4efff,#e8daff);}
-  .phase-icon{font-size:28px;flex-shrink:0;margin-top:2px;}
-  .phase-body{flex:1;}
-  .phase-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;opacity:0.5;}
-  .phase-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px;}
-  .phase-dates{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;background:white;margin-bottom:10px;}
-  .phase-weeks{font-size:12px;color:var(--text-dim);line-height:1.7;}
-  .phase-weeks b{color:var(--ink);}
-  .phase-tip{font-size:11px;font-style:italic;color:var(--text-faint);margin-top:8px;padding-top:8px;border-top:1px solid rgba(26,17,24,0.07);}
-
-  .train-note{background:white;border-radius:14px;padding:18px 22px;border:1.5px solid var(--border);margin-top:16px;}
-  .train-note-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:8px;color:var(--pink);}
-  .train-note p{font-size:12px;color:var(--text-dim);line-height:1.7;}
 
   /* ── RACE CARDS ── */
   .race-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
@@ -147,35 +93,19 @@
   .rc-reg.ok{color:#00a86b;opacity:1;}
   .corner{position:absolute;bottom:14px;right:18px;font-size:42px;opacity:0.15;line-height:1;}
 
-  /* ── FUNDRAISING ── */
-  .fund-block{border-radius:20px;padding:28px;border:1.5px solid var(--border);margin-bottom:20px;}
-  .fund-block.ck   {background:linear-gradient(135deg,#fff0f6,#ffe8f3);border-color:rgba(255,61,133,0.2);}
-  .fund-block.pop  {background:linear-gradient(135deg,#f4efff,#ece3ff);border-color:rgba(200,168,255,0.35);}
-  .fund-block.emb  {background:linear-gradient(135deg,#fffbe0,#ffefc8);border-color:rgba(255,224,52,0.4);}
-  .fh{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
-  .ft{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;line-height:1.2;}
-  .fb{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border-radius:30px;white-space:nowrap;}
-  .fund-block.ck .fb {background:var(--pink);color:white;}
-  .fund-block.pop .fb{background:var(--lilac);color:white;}
-  .fund-block.emb .fb{background:var(--lemon);color:var(--ink);}
-  .fd{font-size:13px;color:var(--text-dim);line-height:1.8;margin-bottom:16px;max-width:600px;}
-  .fideas{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  @media(max-width:580px){.fideas{grid-template-columns:1fr;}}
-  .fidea{background:white;border-radius:12px;padding:14px 16px;border:1.5px solid var(--border);}
-  .fidea-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;margin-bottom:4px;}
-  .fidea-desc{font-size:11px;color:var(--text-dim);line-height:1.6;}
-  .fund-block.ck .fidea-title {color:var(--pink);}
-  .fund-block.pop .fidea-title{color:#8b5cf6;}
-  .fund-block.emb .fidea-title{color:#d4900a;}
-
-  .fund-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;}
-  @media(max-width:640px){.fund-timeline{grid-template-columns:repeat(2,1fr);}}
-  .fmc{background:white;border-radius:10px;padding:12px;text-align:center;border:1.5px solid var(--border);}
-  .fmc.goal{background:linear-gradient(135deg,#f4efff,#e8daff);border-color:rgba(200,168,255,0.5);}
-  .fmc-m{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-faint);margin-bottom:4px;}
-  .fmc-a{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;}
-  .fmc.goal .fmc-a{color:#8b5cf6;}
-  .fmc-t{font-size:9px;color:var(--text-faint);margin-top:2px;}
+  /* ── TRAINING PHASES (simplified) ── */
+  .phases{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px;}
+  @media(max-width:800px){.phases{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:500px){.phases{grid-template-columns:1fr 1fr;}}
+  .ph{border-radius:14px;padding:18px 16px;text-align:center;}
+  .ph-hyrox{background:linear-gradient(135deg,#fffbe0,#ffefc8);}
+  .ph-iron{background:linear-gradient(135deg,#eaf8ff,#cceeff);}
+  .ph-nyc{background:linear-gradient(135deg,#fff0f6,#ffd4e8);border:1.5px solid rgba(255,61,133,0.2);}
+  .ph-bridge{background:linear-gradient(135deg,#e8fff7,#c8f7e8);}
+  .ph-tokyo{background:linear-gradient(135deg,#f4efff,#e8daff);}
+  .ph-icon{font-size:24px;margin-bottom:6px;}
+  .ph-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;margin-bottom:4px;}
+  .ph-dates{font-size:10px;color:var(--text-faint);line-height:1.4;}
 
   /* ── APPS ── */
   .apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -200,20 +130,22 @@
   .app-timeline{margin-top:14px;padding-top:12px;border-top:1px solid rgba(26,17,24,0.07);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-faint);}
   .app-corner{position:absolute;bottom:14px;right:16px;font-size:40px;opacity:0.12;}
 
-  /* ── MONTHS ── */
-  .mg{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-  @media(max-width:640px){.mg{grid-template-columns:1fr;}}
-  .mc{background:white;border-radius:18px;padding:22px;border:1.5px solid var(--border);transition:transform .15s,box-shadow .15s;}
-  .mc:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.07);}
-  .mc.now {background:linear-gradient(135deg,#fff0f6,#ffe4f0);border-color:rgba(255,61,133,0.2);}
-  .mc.big {background:linear-gradient(135deg,#fff0f6,#ffd4e8);border-color:rgba(255,61,133,0.3);}
-  .mc-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;background:var(--lemon);color:var(--ink);padding:3px 10px;border-radius:20px;margin-bottom:7px;}
-  .mc.now .mc-tag,.mc.big .mc-tag{background:var(--pink);color:white;}
-  .mc-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;margin-bottom:3px;letter-spacing:-0.01em;}
-  .mc-theme{font-size:11px;color:var(--text-faint);font-style:italic;margin-bottom:12px;line-height:1.5;}
-  .ml{list-style:none;display:flex;flex-direction:column;gap:5px;}
-  .ml li{font-size:12px;color:rgba(26,17,24,0.7);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
-  .mi{font-size:11px;flex-shrink:0;margin-top:1px;}
+  /* ── EMBROIDERY ── */
+  .emb-card{border-radius:20px;padding:28px;background:linear-gradient(135deg,#fffbe0,#ffefc8);border:1.5px solid rgba(255,224,52,0.4);margin-top:20px;}
+  .emb-card .ft{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;margin-bottom:8px;}
+  .emb-card .fd{font-size:13px;color:var(--text-dim);line-height:1.7;}
+
+  /* ── FUNDRAISING ── */
+  .fund-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+  @media(max-width:640px){.fund-row{grid-template-columns:1fr;}}
+  .fund-card{border-radius:20px;padding:24px;border:1.5px solid var(--border);}
+  .fund-card.ck{background:linear-gradient(135deg,#fff0f6,#ffe8f3);border-color:rgba(255,61,133,0.2);}
+  .fund-card.pop{background:linear-gradient(135deg,#f4efff,#ece3ff);border-color:rgba(200,168,255,0.35);}
+  .fund-card .ft{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:4px;}
+  .fund-card .fb{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;display:inline-block;padding:4px 12px;border-radius:20px;margin-top:8px;}
+  .fund-card.ck .fb{background:var(--pink);color:white;}
+  .fund-card.pop .fb{background:var(--lilac);color:white;}
+  .fund-card .fd{font-size:12px;color:var(--text-dim);line-height:1.6;margin-top:10px;}
 
   /* ── JOB SEARCH ── */
   .jh{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:24px;}
@@ -230,15 +162,35 @@
   .ccol li{font-size:12px;padding:4px 0;color:var(--text-dim);border-bottom:1px solid rgba(26,17,24,0.05);}
   .ccol li:last-child{border-bottom:none;}
 
+  /* ── MONTHS ── */
+  .mg{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media(max-width:640px){.mg{grid-template-columns:1fr;}}
+  .mc{background:white;border-radius:18px;padding:22px;border:1.5px solid var(--border);transition:transform .15s,box-shadow .15s;}
+  .mc:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.07);}
+  .mc.now {background:linear-gradient(135deg,#fff0f6,#ffe4f0);border-color:rgba(255,61,133,0.2);}
+  .mc.big {background:linear-gradient(135deg,#fff0f6,#ffd4e8);border-color:rgba(255,61,133,0.3);}
+  .mc-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;background:var(--lemon);color:var(--ink);padding:3px 10px;border-radius:20px;margin-bottom:7px;}
+  .mc.now .mc-tag,.mc.big .mc-tag{background:var(--pink);color:white;}
+  .mc-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;margin-bottom:3px;letter-spacing:-0.01em;}
+  .mc-theme{font-size:11px;color:var(--text-faint);font-style:italic;margin-bottom:12px;line-height:1.5;}
+  .ml{list-style:none;display:flex;flex-direction:column;gap:5px;}
+  .ml li{font-size:12px;color:rgba(26,17,24,0.7);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
+  .mi{font-size:11px;flex-shrink:0;margin-top:1px;}
+
+  /* ── LIFESTYLE ── */
+  .life-grid{display:flex;flex-wrap:wrap;gap:10px;}
+  .life-pill{background:white;border:1.5px solid var(--border);border-radius:40px;padding:10px 18px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;transition:transform .12s;}
+  .life-pill:hover{transform:scale(1.03);}
+
   /* ── FOOTER ── */
-  footer{position:relative;z-index:1;padding:44px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:2px solid var(--border);margin-top:16px;}
+  footer{padding:44px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:2px solid var(--border);margin-top:16px;}
   .fn{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.02em;}
   .fn .p{color:var(--pink);}
   .fd2{font-size:11px;font-weight:500;color:var(--text-faint);}
 
   /* ── ANIM ── */
   @keyframes su{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-  .hd,footer{animation:su .5s ease both;}
+  .hd,footer,.section{animation:su .5s ease both;}
 </style>
 </head>
 <body>
@@ -249,7 +201,7 @@
 <div class="wrap">
 
 <!-- ══ HEADER ══ -->
-<div class="hd">
+<div class="hd" id="top">
   <div class="hd-badge">✦ Mikaela Connell · Updated March 18, 2026</div>
   <h1>
     <span class="l1">2026</span>
@@ -261,398 +213,240 @@
     <div class="hp"><div class="dot" style="background:#ffe034"></div>Google ML Cert — PASSED</div>
     <div class="hp"><div class="dot" style="background:#3de8b0"></div>Hyrox May 30 — REGISTERED</div>
     <div class="hp"><div class="dot" style="background:#c8a8ff"></div>Tokyo 2027 — CONFIRMED</div>
-    <div class="hp"><div class="dot" style="background:#ff85b8"></div>3 Apps Launching: Reen · Run · Fridge</div>
+    <div class="hp"><div class="dot" style="background:#ff85b8"></div>3 Apps Launching</div>
   </div>
 </div>
 
-<!-- ══ TAB BAR ══ -->
-<div class="tab-bar">
-  <div class="tab active" data-tab="overview">Overview</div>
-  <div class="tab" data-tab="racing">Racing</div>
-  <div class="tab" data-tab="fundraising">Fundraising</div>
-  <div class="tab" data-tab="apps">Apps</div>
-  <div class="tab" data-tab="career">Career</div>
-  <div class="tab" data-tab="roadmap">Roadmap</div>
+<!-- ══ NAV ══ -->
+<div class="nav">
+  <a href="#fitness">Fitness</a>
+  <a href="#business">Business</a>
+  <a href="#career">Career</a>
+  <a href="#lifestyle">Lifestyle</a>
+  <a href="#roadmap">Monthly Roadmap</a>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- TAB: OVERVIEW                         -->
-<!-- ══════════════════════════════════════ -->
-<div class="tab-content active" id="overview">
+<!-- ══ FITNESS ══ -->
+<div class="section" id="fitness">
+  <div class="section-divider"></div>
+  <div class="ey">Fitness Goals</div>
+  <h2>The <span class="a">Finish Lines</span></h2>
 
-  <div class="sw">
-    <div class="ey">Progress Tracker</div>
-    <h2>Where Things <span class="a">Stand</span></h2>
-    <div class="nb">
-      <div class="nb-icon">🧠</div>
-      <div>
-        <h3>NYC Marathon — CaringKind (Alzheimer's) · CONFIRMED ★</h3>
-        <p>Entry secured for the 2026 TCS NYC Marathon. Race day: November 1, 2026. Fundraising minimum: $5,000. Embroidery profits go directly to CaringKind.</p>
-      </div>
+  <div class="race-grid">
+    <div class="race-card rc-hyrox">
+      <div class="rc-date">May 30, 2026</div>
+      <div class="rc-name">NYC Hyrox</div>
+      <div class="rc-reg ok">✓ REGISTERED</div>
+      <div class="rc-tag">🏋️ Training underway</div>
+      <div class="corner">🏋️</div>
     </div>
-    <div class="tg">
-      <div class="tc"><div class="ti">🏆</div><div class="tt"><h4>Google ML Certification</h4><div class="chip c-done">✓ Passed</div><div class="tn">March 3, 2026</div></div></div>
-      <div class="tc"><div class="ti">📄</div><div class="tt"><h4>Resume + LinkedIn Updated</h4><div class="chip c-done">✓ Done</div><div class="tn">Completed</div></div></div>
-      <div class="tc"><div class="ti">🏋️</div><div class="tt"><h4>NYC Hyrox — May 30</h4><div class="chip c-done">✓ Registered</div><div class="tn">Training begins mid-March</div></div></div>
-      <div class="tc hl"><div class="ti">🧠</div><div class="tt"><h4>NYC Marathon — CaringKind</h4><div class="chip c-new">★ Confirmed · NEW</div><div class="tn">Nov 1, 2026 · Raise $5,000+</div></div></div>
-      <div class="tc"><div class="ti">🌸</div><div class="tt"><h4>Tokyo Marathon 2027 — PoP</h4><div class="chip c-done">✓ Confirmed</div><div class="tn">Raise $7,500 by March 2027</div></div></div>
-      <div class="tc"><div class="ti">🧵</div><div class="tt"><h4>Embroidery Site Launch</h4><div class="chip c-prog">⏳ In Progress</div><div class="tn">Target: March 31 · Profits → charity</div></div></div>
-      <div class="tc"><div class="ti">💼</div><div class="tt"><h4>Job Search Launch</h4><div class="chip c-prog">⏳ In Progress</div><div class="tn">Applications: Week 3–4 March</div></div></div>
-      <div class="tc"><div class="ti">🏃‍♀️</div><div class="tt"><h4>Hyrox Functional Training</h4><div class="chip c-start">◉ Starting</div><div class="tn">Begin mid-March</div></div></div>
-      <div class="tc"><div class="ti">🥊</div><div class="tt"><h4>Boxing</h4><div class="chip c-start">◉ Starting</div><div class="tn">2026 goal</div></div></div>
-      <div class="tc"><div class="ti">📝</div><div class="tt"><h4>Medium Blog Posts</h4><div class="chip c-start">◉ Starting</div><div class="tn">ML/AI + career writing</div></div></div>
-      <div class="tc"><div class="ti">🎥</div><div class="tt"><h4>Launch YouTube + TikTok</h4><div class="chip c-start">◉ Starting</div><div class="tn">Content creation channels</div></div></div>
-      <div class="tc"><div class="ti">🎨</div><div class="tt"><h4>Painting</h4><div class="chip c-start">◉ Starting</div><div class="tn">Creative enrichment</div></div></div>
-      <div class="tc"><div class="ti">💐</div><div class="tt"><h4>Floral Arrangements</h4><div class="chip c-start">◉ Starting</div><div class="tn">Learn + event planning biz</div></div></div>
+    <div class="race-card rc-iron">
+      <div class="rc-date">Sep / Oct 2026 (TBD)</div>
+      <div class="rc-name">Half Ironman</div>
+      <div class="rc-reg">Register by May</div>
+      <div class="rc-tag">🏊🚴🏃 Triathlon</div>
+      <div class="corner">🚴</div>
     </div>
-  </div>
-
-  <div class="sw">
-    <div class="ey">Priority Tiers</div>
-    <h2>When Life Gets <span class="a">Tight</span></h2>
-    <div class="tier-g">
-      <div class="tier"><div class="tier-n">0</div><div class="tier-l">Never Skip</div><ul class="tier-items"><li>Job search</li><li>Harvard coursework</li><li>Hyrox training (→ May 30)</li></ul></div>
-      <div class="tier"><div class="tier-n">1</div><div class="tier-l">High Priority</div><ul class="tier-items"><li>Embroidery (→ charity)</li><li>App development (Reen first)</li><li>Daily habits</li></ul></div>
-      <div class="tier"><div class="tier-n">2</div><div class="tier-l">Flexible</div><ul class="tier-items"><li>Content: Medium, Substack, YouTube, TikTok</li><li>Half Ironman · Marathons</li><li>Boxing</li><li>Career planning biz</li><li>Italy trip</li></ul></div>
-      <div class="tier"><div class="tier-n">3</div><div class="tier-l">Enrichment</div><ul class="tier-items"><li>Event planning biz</li><li>Pottery · Sewing · Painting · Cakes</li><li>Floral arrangements</li><li>Sourdough · Handstand</li></ul></div>
+    <div class="race-card rc-nyc">
+      <div class="rc-date">November 1, 2026</div>
+      <div class="rc-name">NYC Marathon</div>
+      <div class="rc-goal">🧠 CaringKind · Fundraise $5,000+</div>
+      <div class="rc-reg ok">✓ CONFIRMED</div>
+      <div class="corner">🧠</div>
+    </div>
+    <div class="race-card rc-tokyo">
+      <div class="rc-date">March 1, 2027</div>
+      <div class="rc-name">Tokyo Marathon 🌸</div>
+      <div class="rc-goal">✏️ Pencils of Promise · Raise $7,500</div>
+      <div class="rc-reg ok">✓ CONFIRMED</div>
+      <div class="corner">🌸</div>
     </div>
   </div>
 
-  <div class="sw">
-    <div class="ey">Daily Non-Negotiables</div>
-    <h2>The <span class="a">Baseline</span></h2>
-    <div class="hab-row">
-      <div class="hab"><span>📵</span> No phone in bedroom</div>
-      <div class="hab"><span>🚫</span> No alcohol — full year</div>
-      <div class="hab"><span>⏱️</span> Screen time limits enforced</div>
-      <div class="hab"><span>📚</span> 30–45 min interview prep daily (Mar–Jun)</div>
-      <div class="hab"><span>🥊</span> Boxing</div>
+  <div class="phases">
+    <div class="ph ph-hyrox">
+      <div class="ph-icon">🏋️</div>
+      <div class="ph-name">Hyrox Build</div>
+      <div class="ph-dates">Mar 15 – May 29</div>
+    </div>
+    <div class="ph ph-iron">
+      <div class="ph-icon">🏊</div>
+      <div class="ph-name">Half Ironman</div>
+      <div class="ph-dates">Jun 1 – Sep/Oct</div>
+    </div>
+    <div class="ph ph-nyc">
+      <div class="ph-icon">🧠</div>
+      <div class="ph-name">NYC Marathon</div>
+      <div class="ph-dates">Jul 14 – Nov 1</div>
+    </div>
+    <div class="ph ph-bridge">
+      <div class="ph-icon">🔄</div>
+      <div class="ph-name">Recovery</div>
+      <div class="ph-dates">Nov 1 – Dec 14</div>
+    </div>
+    <div class="ph ph-tokyo">
+      <div class="ph-icon">🌸</div>
+      <div class="ph-name">Tokyo Prep</div>
+      <div class="ph-dates">Dec 15 – Mar 1</div>
     </div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- TAB: RACING                           -->
-<!-- ══════════════════════════════════════ -->
-<div class="tab-content" id="racing">
+<!-- ══ BUSINESS ══ -->
+<div class="section" id="business">
+  <div class="section-divider"></div>
+  <div class="ey">Business Ideas</div>
+  <h2>Three Apps + <span class="a">Embroidery</span></h2>
 
-  <div class="sw">
-    <div class="ey">Race Calendar</div>
-    <h2>The <span class="a">Finish Lines</span></h2>
-    <div class="race-grid">
-      <div class="race-card rc-hyrox">
-        <div class="rc-date">May 30, 2026</div>
-        <div class="rc-name">NYC Hyrox</div>
-        <div class="rc-reg ok">✓ REGISTERED</div>
-        <div class="rc-tag">🏋️ Training underway</div>
-        <div class="corner">🏋️</div>
-      </div>
-      <div class="race-card rc-iron">
-        <div class="rc-date">Sep / Oct 2026 (TBD)</div>
-        <div class="rc-name">Half Ironman</div>
-        <div class="rc-reg">Register by May · Train from June</div>
-        <div class="rc-tag">🏊🚴🏃 Triathlon</div>
-        <div class="corner">🚴</div>
-      </div>
-      <div class="race-card rc-nyc">
-        <div class="rc-date">November 1, 2026</div>
-        <div class="rc-name">NYC Marathon</div>
-        <div class="rc-goal">🧠 CaringKind · Fundraise $5,000+</div>
-        <div class="rc-reg ok">✓ CONFIRMED</div>
-        <div class="rc-tag">🧠 CaringKind (Alzheimer's)</div>
-        <div class="corner">🧠</div>
-      </div>
-      <div class="race-card rc-tokyo">
-        <div class="rc-date">March 1, 2027</div>
-        <div class="rc-name">Tokyo Marathon 🌸</div>
-        <div class="rc-goal">✏️ Pencils of Promise · Raise $7,500</div>
-        <div class="rc-reg ok">✓ CONFIRMED</div>
-        <div class="rc-tag">✏️ Pencils of Promise</div>
-        <div class="corner">🌸</div>
-      </div>
+  <div class="apps-grid">
+    <div class="app-card reen">
+      <div class="app-icon">🌿</div>
+      <div class="app-name">Reen</div>
+      <div class="app-tagline">Women's health app — intelligent, compassionate, personalized.</div>
+      <ul class="app-features">
+        <li>Cycle + symptom tracking with AI pattern recognition</li>
+        <li>Personalized health insights grounded in your data</li>
+        <li>Nurse-informed content</li>
+        <li>Mental + physical health integration</li>
+      </ul>
+      <div class="app-timeline">Build: Jun–Jul · Launch: Sep 2026</div>
+      <div class="app-corner">🌿</div>
+    </div>
+    <div class="app-card run">
+      <div class="app-icon">🗽</div>
+      <div class="app-name">NYC Running App</div>
+      <div class="app-tagline">The running companion built for NYC runners, by an NYC runner.</div>
+      <ul class="app-features">
+        <li>Curated NYC routes with real-time conditions</li>
+        <li>Community run clubs + group run finder</li>
+        <li>Marathon training plans for NYC terrain</li>
+        <li>Charity run integration</li>
+      </ul>
+      <div class="app-timeline">Build: Jul–Aug · Launch: Oct 2026</div>
+      <div class="app-corner">🗽</div>
+    </div>
+    <div class="app-card fridge">
+      <div class="app-icon">🥦</div>
+      <div class="app-name">Smart Fridge AI</div>
+      <div class="app-tagline">AI that knows what's in your fridge and tells you what to cook.</div>
+      <ul class="app-features">
+        <li>Scan your fridge → AI generates recipes</li>
+        <li>Expiry-based meal suggestions</li>
+        <li>Learns your dietary preferences</li>
+        <li>Grocery list + smart shopping</li>
+      </ul>
+      <div class="app-timeline">Build: Aug–Sep · Launch: Nov 2026</div>
+      <div class="app-corner">🥦</div>
     </div>
   </div>
 
-  <div class="sw">
-    <div class="ey">Training Plan</div>
-    <h2>The <span class="a">Training Roadmap</span></h2>
-
-    <div class="train-phases">
-      <div class="phase phase-hyrox">
-        <div class="phase-icon">🏋️</div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 1</div>
-          <div class="phase-title">Hyrox Build</div>
-          <div class="phase-dates">March 15 – May 29, 2026</div>
-          <div class="phase-weeks">
-            <b>Mar–Apr:</b> 2–3x/week functional training (rowing, wall balls, sled sim, farmers carries) + 3 easy runs/week.<br>
-            <b>May 1–23:</b> Peak training — timed Hyrox simulations, 3 functional + 3 run sessions/week.<br>
-            <b>May 24–30:</b> Taper week. Easy movement only. Race Day May 30.
-          </div>
-          <div class="phase-tip">Running base you build here carries directly into marathon training. Don't skip the long runs.</div>
-        </div>
-      </div>
-
-      <div class="phase phase-iron">
-        <div class="phase-icon">🏊</div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 2</div>
-          <div class="phase-title">Half Ironman Base → Peak</div>
-          <div class="phase-dates">June 1 – race day (Sep/Oct 2026)</div>
-          <div class="phase-weeks">
-            <b>June:</b> Recovery from Hyrox + base building. Swim 2x/week, easy cycling, run 3x/week.<br>
-            <b>July–Aug:</b> Build volume. Long ride Sunday, long run Saturday, swim 2x mid-week.<br>
-            <b>Note:</b> NYC Marathon 16-week plan starts ~July 14 — your long runs serve double duty.
-          </div>
-          <div class="phase-tip">Pick a Sep race to keep the July–Aug overlap manageable. An Oct race compresses your NYC Marathon taper.</div>
-        </div>
-      </div>
-
-      <div class="phase phase-nyc">
-        <div class="phase-icon">🧠</div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 3 — The Big One</div>
-          <div class="phase-title">NYC Marathon — 16-Week Plan</div>
-          <div class="phase-dates">July 14 – November 1, 2026</div>
-          <div class="phase-weeks">
-            <b>Weeks 1–6 (Jul 14 – Aug 24):</b> Overlaps with Half Ironman training. Long runs are the priority. Target 35–45 miles/week by end of this block.<br>
-            <b>Weeks 7–10 (Aug 25 – Sep 21):</b> Half Ironman taper/race in here. Keep running volume, reduce swim/bike post-race.<br>
-            <b>Weeks 11–14 (Sep 22 – Oct 19):</b> Peak marathon training. 18–22 mile long runs. One 20-miler by Oct 5.<br>
-            <b>Weeks 15–16 (Oct 20 – Nov 1):</b> Taper. Cut volume 40%. Sleep, nutrition, race prep.
-          </div>
-          <div class="phase-tip">Your Half Ironman fitness (aerobic engine + mental toughness) is a massive advantage going into marathon training. Trust the base.</div>
-        </div>
-      </div>
-
-      <div class="phase phase-bridge">
-        <div class="phase-icon">🔄</div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 4 — The Bridge</div>
-          <div class="phase-title">NYC → Tokyo Recovery + Rebuild</div>
-          <div class="phase-dates">November 1 – December 14, 2026</div>
-          <div class="phase-weeks">
-            <b>Nov 1–14:</b> Full rest. You just ran a marathon. No running for 10–14 days minimum.<br>
-            <b>Nov 15 – Dec 14:</b> Easy rebuild. 20–30 miles/week, all easy pace. No workouts. Just getting the legs back under you.<br>
-            <b>Dec 15:</b> Begin Tokyo 11-week targeted plan. You'll have marathon fitness — this is just sharpening, not building from zero.
-          </div>
-          <div class="phase-tip">You have ~18 weeks between NYC and Tokyo. That's tight but very doable at your fitness level. The key is not skipping the recovery window.</div>
-        </div>
-      </div>
-
-      <div class="phase phase-tokyo">
-        <div class="phase-icon">🌸</div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 5</div>
-          <div class="phase-title">Tokyo Marathon — 11-Week Sharpening Plan</div>
-          <div class="phase-dates">December 15, 2026 – March 1, 2027</div>
-          <div class="phase-weeks">
-            <b>Dec 15 – Jan 11:</b> Rebuild quality. Add tempo runs and progressions back in. 35–45 miles/week.<br>
-            <b>Jan 12 – Feb 8:</b> Peak block. One 20-miler around Jan 19. Marathon-pace long run Jan 26.<br>
-            <b>Feb 9 – Mar 1:</b> Taper. 3-week taper, cut volume. Arrive Tokyo early, adjust for time zone.
-          </div>
-          <div class="phase-tip">Tokyo is famously fast and flat. With your NYC fitness still in your legs, this could be a PR attempt.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="train-note">
-      <div class="train-note-title">⚡ Key Overlap Warning: July–September</div>
-      <p>Half Ironman training and NYC Marathon training overlap for about 10 weeks. This is manageable — your Saturday long run serves marathon training, your Sunday long ride serves Ironman. Swim 2x mid-week. Do NOT add extra volume; let the workouts serve both goals. If it gets overwhelming, the Half Ironman drops to Tier 2 — NYC Marathon is the priority event.</p>
-    </div>
+  <div class="emb-card">
+    <div class="ft">🧵 Embroidery Business → 100% Profits to Charity</div>
+    <div class="fd">Every product sold funds CaringKind and Pencils of Promise. Themed drops tied to each race, milestone releases at every 100 training miles. Site launching by March 31.</div>
   </div>
 
+  <div class="fund-row">
+    <div class="fund-card ck">
+      <div class="ft">🧠 CaringKind</div>
+      <div class="fd">NYC Marathon charity — Alzheimer's caregiver support</div>
+      <div class="fb">Raise $5,000+</div>
+    </div>
+    <div class="fund-card pop">
+      <div class="ft">🌸 Pencils of Promise</div>
+      <div class="fd">Tokyo Marathon charity — global education access</div>
+      <div class="fb">Raise $7,500</div>
+    </div>
+  </div>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- TAB: FUNDRAISING                      -->
-<!-- ══════════════════════════════════════ -->
-<div class="tab-content" id="fundraising">
-
-  <div class="sw">
-    <div class="ey">Charity Fundraising</div>
-    <h2>Running for <span class="a">Purpose</span></h2>
-
-    <!-- EMBROIDERY ANCHOR -->
-    <div class="fund-block emb">
-      <div class="fh">
-        <div class="ft">🧵 Embroidery Business<br>→ 100% Profits to Charity</div>
-        <div class="fb">The Anchor Strategy</div>
-      </div>
-      <div class="fd">This is your secret weapon. Every product sold becomes a micro-donation, and it gives every buyer a story. Split profits between CaringKind and Pencils of Promise — or run themed drops tied to each race. "Buy a piece, fund a mile."</div>
-      <div class="fideas">
-        <div class="fidea"><div class="fidea-title">Charity-Themed Collections</div><div class="fidea-desc">Launch a "Miles for Memory" embroidery drop for CaringKind and a "Run for Education" drop for PoP. Limited quantities create urgency.</div></div>
-        <div class="fidea"><div class="fidea-title">Training Milestone Drops</div><div class="fidea-desc">Release a new piece at every 100 miles logged in training. Ties your athletic story to the product launch calendar.</div></div>
-        <div class="fidea"><div class="fidea-title">Custom Donor Gifts</div><div class="fidea-desc">Offer a custom embroidery piece as a thank-you for donors over $100–200. Handmade = memorable and personal.</div></div>
-        <div class="fidea"><div class="fidea-title">Race Day Specials</div><div class="fidea-desc">Launch a limited race-week drop (NYC marathon week, Tokyo race week). Announce it in your fundraising content. FOMO sells.</div></div>
-      </div>
-    </div>
-
-    <!-- CARINGKIND -->
-    <div class="fund-block ck">
-      <div class="fh">
-        <div class="ft">🧠 NYC Marathon<br>CaringKind (Alzheimer's)</div>
-        <div class="fb">Raise $5,000 minimum</div>
-      </div>
-      <div class="fd">CaringKind is NYC's leading Alzheimer's caregiver support organization. Your MSK oncology background gives you a uniquely powerful story — you've sat with patients and families navigating neurological decline. That's not a generic fundraising ask. That lands.</div>
-      <div class="fideas">
-        <div class="fidea"><div class="fidea-title">📣 Personal Story First</div><div class="fidea-desc">Lead with a specific patient or family moment from your MSK days (anonymized). "I held hands with patients who forgot their children's names." That's a donor ask that gets opened.</div></div>
-        <div class="fidea"><div class="fidea-title">💌 Tiered Ask Emails</div><div class="fidea-desc">Segment outreach: close friends ($50–100), colleagues + LinkedIn ($25–50), MSK network ($50–200). 60 people averaging $85 = $5,100. You have the network.</div></div>
-        <div class="fidea"><div class="fidea-title">🏃‍♀️ Training Update Series</div><div class="fidea-desc">Monthly Instagram/LinkedIn post: "X miles run, $Y raised for CaringKind." Every milestone is a re-ask opportunity. People give when they see momentum.</div></div>
-        <div class="fidea"><div class="fidea-title">🎉 NYC Fundraiser Run + Dinner</div><div class="fidea-desc">Host a small group run (5K) in NYC + casual dinner. Ask for $30–50 entry, all goes to CaringKind. Your running community + friends = easy $500–1,500 in one night.</div></div>
-        <div class="fidea"><div class="fidea-title">🏢 Employer Matching</div><div class="fidea-desc">Check with HR at your new job as soon as you start. Corporate matching can double individual donations. Even 20 matched gifts of $50 = $2,000 extra.</div></div>
-        <div class="fidea"><div class="fidea-title">🧵 Embroidery Profits Split</div><div class="fidea-desc">Allocate 60% of embroidery profits to CaringKind through race day. Announce it publicly — it becomes a marketing hook for the business too.</div></div>
-      </div>
-    </div>
-
-    <!-- TOKYO / POP -->
-    <div class="fund-block pop">
-      <div class="fh">
-        <div class="ft">🌸 Tokyo Marathon 2027<br>Pencils of Promise</div>
-        <div class="fb">Raise $7,500</div>
-      </div>
-      <div class="fd">Your Harvard education journey and career pivot from nursing to ML is your PoP story — education literally changed your life. The Italy trip, Tokyo travel content, and your marathon training all become fundraising assets for this campaign. NYC Marathon race day is your biggest PoP fundraising moment.</div>
-      <div class="fund-timeline">
-        <div class="fmc"><div class="fmc-m">May</div><div class="fmc-a">$1K</div><div class="fmc-t">$1,000</div></div>
-        <div class="fmc"><div class="fmc-m">Jun</div><div class="fmc-a">$500</div><div class="fmc-t">$1,500</div></div>
-        <div class="fmc"><div class="fmc-m">Jul</div><div class="fmc-a">$1.5K</div><div class="fmc-t">$3,000</div></div>
-        <div class="fmc"><div class="fmc-m">Aug</div><div class="fmc-a">$1K</div><div class="fmc-t">$4,000</div></div>
-        <div class="fmc"><div class="fmc-m">Sep</div><div class="fmc-a">$500</div><div class="fmc-t">$4,500</div></div>
-        <div class="fmc"><div class="fmc-m">Oct</div><div class="fmc-a">$500</div><div class="fmc-t">$5,000</div></div>
-        <div class="fmc"><div class="fmc-m">Nov</div><div class="fmc-a">$1.5K</div><div class="fmc-t">$6,500</div></div>
-        <div class="fmc goal"><div class="fmc-m">Dec</div><div class="fmc-a">$1K</div><div class="fmc-t">$7,500 ✅</div></div>
-      </div>
-    </div>
+<!-- ══ CAREER ══ -->
+<div class="section" id="career">
+  <div class="section-divider"></div>
+  <div class="ey">Career Goals</div>
+  <h2>DS/ML Engineer, <span class="a">Hybrid NYC</span></h2>
+  <div class="jh">
+    <div class="jbadge-sal">🎯 $150K–$220K+ TC</div>
+    <div class="jbadge-time">⏰ Offer target: May–June 2026</div>
   </div>
-
+  <div class="tg" style="margin-bottom:20px;">
+    <div class="tc"><div class="ti">🏆</div><div class="tt"><h4>Google ML Certification</h4><div class="chip c-done">✓ Passed</div><div class="tn">March 3, 2026</div></div></div>
+    <div class="tc"><div class="ti">📄</div><div class="tt"><h4>Resume + LinkedIn Updated</h4><div class="chip c-done">✓ Done</div></div></div>
+    <div class="tc"><div class="ti">💼</div><div class="tt"><h4>Job Applications</h4><div class="chip c-prog">⏳ In Progress</div><div class="tn">5–8 per week starting late March</div></div></div>
+    <div class="tc"><div class="ti">📝</div><div class="tt"><h4>Medium Blog Posts</h4><div class="chip c-start">◉ Starting</div><div class="tn">ML/AI writing</div></div></div>
+  </div>
+  <div class="cc">
+    <div class="ccol"><h4>Big Tech + Fintech</h4><ul><li>Google · Meta · Amazon</li><li>Apple · Microsoft · Bloomberg</li><li>Stripe · Square · Plaid</li><li>Two Sigma · Citadel</li><li>Jane Street · DE Shaw · Point72</li></ul></div>
+    <div class="ccol"><h4>AI-Native + Health Tech</h4><ul><li>OpenAI · Anthropic · Cohere</li><li>Hugging Face</li><li>Flatiron Health · Noom</li><li>Oscar Health · Ro</li></ul></div>
+    <div class="ccol"><h4>NYC Tech + Startups</h4><ul><li>Spotify · Datadog · MongoDB</li><li>Etsy · Peloton · NYT</li><li>Series B–D AI/ML startups</li><li>Wellfound + LinkedIn pipeline</li></ul></div>
+  </div>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- TAB: APPS                             -->
-<!-- ══════════════════════════════════════ -->
-<div class="tab-content" id="apps">
-
-  <div class="sw">
-    <div class="ey">App Roadmap</div>
-    <h2>Three <span class="a">Launches</span></h2>
-    <div class="apps-grid">
-
-      <div class="app-card reen">
-        <div class="app-icon">🌿</div>
-        <div class="app-name">Reen</div>
-        <div class="app-tagline">Women's health app — intelligent, compassionate, personalized.</div>
-        <ul class="app-features">
-          <li>Cycle + symptom tracking with AI pattern recognition</li>
-          <li>Personalized health insights grounded in your data</li>
-          <li>Nurse-informed content (your MSK background = built-in credibility)</li>
-          <li>Mental + physical health integration, not just period tracking</li>
-        </ul>
-        <div class="app-timeline">Build: Jun–Jul · Submit: Aug · Launch: Sep 2026</div>
-        <div class="app-corner">🌿</div>
-      </div>
-
-      <div class="app-card run">
-        <div class="app-icon">🗽</div>
-        <div class="app-name">NYC Running App</div>
-        <div class="app-tagline">The running companion built for NYC runners, by an NYC runner.</div>
-        <ul class="app-features">
-          <li>Curated NYC running routes with real-time conditions</li>
-          <li>Community run clubs + group run finder</li>
-          <li>Marathon training plan tailored to NYC terrain</li>
-          <li>Charity run integration — track miles toward fundraising goals</li>
-        </ul>
-        <div class="app-timeline">Build: Jul–Aug · Submit: Sep · Launch: Oct 2026</div>
-        <div class="app-corner">🗽</div>
-      </div>
-
-      <div class="app-card fridge">
-        <div class="app-icon">🥦</div>
-        <div class="app-name">Smart Fridge AI</div>
-        <div class="app-tagline">AI that knows what's in your fridge and tells you what to cook.</div>
-        <ul class="app-features">
-          <li>Scan your fridge → AI generates recipes from what you have</li>
-          <li>Reduces food waste with expiry-based meal suggestions</li>
-          <li>Learns your dietary preferences and restrictions over time</li>
-          <li>Grocery list generation + smart shopping optimization</li>
-        </ul>
-        <div class="app-timeline">Build: Aug–Sep · Submit: Oct · Launch: Nov 2026</div>
-        <div class="app-corner">🥦</div>
-      </div>
-
-    </div>
+<!-- ══ LIFESTYLE ══ -->
+<div class="section" id="lifestyle">
+  <div class="section-divider"></div>
+  <div class="ey">Lifestyle + Enrichment</div>
+  <h2>The <span class="a">Full Picture</span></h2>
+  <div class="life-grid">
+    <div class="life-pill"><span>🚫</span> No alcohol — full year</div>
+    <div class="life-pill"><span>📵</span> No phone in bedroom</div>
+    <div class="life-pill"><span>⏱️</span> Screen time limits</div>
+    <div class="life-pill"><span>🥊</span> Boxing</div>
+    <div class="life-pill"><span>🇮🇹</span> Italy birthday trip</div>
+    <div class="life-pill"><span>🎥</span> YouTube + TikTok</div>
+    <div class="life-pill"><span>✍️</span> Fashion Substack</div>
+    <div class="life-pill"><span>🤸</span> Handstand to sit</div>
+    <div class="life-pill"><span>🏺</span> Pottery</div>
+    <div class="life-pill"><span>🎨</span> Painting</div>
+    <div class="life-pill"><span>🪡</span> Sewing</div>
+    <div class="life-pill"><span>💐</span> Floral arrangements</div>
+    <div class="life-pill"><span>🎂</span> Learn to make cakes</div>
+    <div class="life-pill"><span>🥯</span> Sourdough bagels</div>
+    <div class="life-pill"><span>🎉</span> Event planning business</div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- TAB: CAREER                           -->
-<!-- ══════════════════════════════════════ -->
-<div class="tab-content" id="career">
+<!-- ══ MONTHLY ROADMAP ══ -->
+<div class="section" id="roadmap">
+  <div class="section-divider"></div>
+  <div class="ey">Monthly Roadmap</div>
+  <h2>Month by <span class="a">Month</span></h2>
+  <div class="mg">
+    <div class="mc now"><div class="mc-tag">Now</div><div class="mc-name">March</div><div class="mc-theme">"Ignition month. Everything starts."</div><ul class="ml"><li><span class="mi">✅</span>ML Cert passed · Resume updated</li><li><span class="mi">✅</span>Hyrox registered · NYC Marathon confirmed</li><li><span class="mi">🎯</span>Embroidery site live by Mar 31</li><li><span class="mi">🎯</span>Job search + interview prep begins</li></ul></div>
 
-  <div class="sw">
-    <div class="ey">Job Search</div>
-    <h2>DS/ML Engineer, <span class="a">Hybrid NYC</span></h2>
-    <div class="jh">
-      <div class="jbadge-sal">🎯 $150K–$220K+ TC</div>
-      <div class="jbadge-time">⏰ Offer target: May–June 2026</div>
-    </div>
-    <div class="cc">
-      <div class="ccol"><h4>Big Tech + Fintech</h4><ul><li>Google · Meta · Amazon</li><li>Apple · Microsoft · Bloomberg</li><li>Stripe · Square · Plaid</li><li>Two Sigma · Citadel</li><li>Jane Street · DE Shaw · Point72</li></ul></div>
-      <div class="ccol"><h4>AI-Native + Health Tech</h4><ul><li>OpenAI · Anthropic · Cohere</li><li>Hugging Face</li><li>Flatiron Health · Noom</li><li>Oscar Health · Ro</li></ul></div>
-      <div class="ccol"><h4>NYC Tech + Startups</h4><ul><li>Spotify · Datadog · MongoDB</li><li>Etsy · Peloton · NYT</li><li>Series B–D AI/ML startups</li><li>Wellfound + LinkedIn pipeline</li></ul></div>
-    </div>
+    <div class="mc"><div class="mc-tag">April</div><div class="mc-name">April</div><div class="mc-theme">"Apply hard. Train hard."</div><ul class="ml"><li><span class="mi">🎯</span>5–8 job applications/week</li><li><span class="mi">🎯</span>Hyrox training 3x/week + 3 runs</li><li><span class="mi">🎯</span>Embroidery: 15+ products live</li><li><span class="mi">🎯</span>2+ NYC ML/AI meetups</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">May</div><div class="mc-name">May</div><div class="mc-theme">"Race + offer."</div><ul class="ml"><li><span class="mi">⭐</span>NYC Hyrox — May 30</li><li><span class="mi">🎯</span>Offer in hand or final rounds</li><li><span class="mi">🧠</span>Fundraising pages live</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">June</div><div class="mc-name">June</div><div class="mc-theme">"New job. Build Reen."</div><ul class="ml"><li><span class="mi">⭐</span>New job begins</li><li><span class="mi">🌿</span>Reen: scope + start build</li><li><span class="mi">🎯</span>Half Ironman base training</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">July</div><div class="mc-name">July</div><div class="mc-theme">"Italy. Ship Reen. Marathon starts."</div><ul class="ml"><li><span class="mi">🇮🇹</span>Italy birthday trip</li><li><span class="mi">🏃‍♀️</span>NYC Marathon 16-week plan begins</li><li><span class="mi">🌿</span>Reen: build → beta</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">August</div><div class="mc-name">August</div><div class="mc-theme">"Launch Reen. Train for everything."</div><ul class="ml"><li><span class="mi">⭐</span>Reen submitted to App Store</li><li><span class="mi">🎯</span>Half Ironman peak + Marathon build</li><li><span class="mi">🗽</span>NYC Running app: start build</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">September</div><div class="mc-name">September</div><div class="mc-theme">"Half Ironman. Marathon peak."</div><ul class="ml"><li><span class="mi">⭐</span>Half Ironman race day</li><li><span class="mi">🎯</span>NYC Marathon peak training</li><li><span class="mi">🗽</span>NYC Running app: submit</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">October</div><div class="mc-name">October</div><div class="mc-theme">"Peak training. Two app launches."</div><ul class="ml"><li><span class="mi">⭐</span>NYC Running app launches</li><li><span class="mi">🥦</span>Smart Fridge AI: submit</li><li><span class="mi">🎯</span>Marathon taper begins Oct 20</li></ul></div>
+
+    <div class="mc big"><div class="mc-tag">The Big One</div><div class="mc-name">November</div><div class="mc-theme">"Race day. Everything else waits."</div><ul class="ml"><li><span class="mi">⭐</span>NYC MARATHON — November 1</li><li><span class="mi">⭐</span>Smart Fridge AI launches</li><li><span class="mi">🧠</span>Biggest CaringKind fundraising moment</li><li><span class="mi">🏃‍♀️</span>Tokyo rebuild begins Nov 15</li></ul></div>
+
+    <div class="mc"><div class="mc-tag">December</div><div class="mc-name">December</div><div class="mc-theme">"Recover. Rebuild. Close the year."</div><ul class="ml"><li><span class="mi">🌸</span>Tokyo 11-week plan begins Dec 15</li><li><span class="mi">🌸</span>PoP: $7,500 fully raised</li><li><span class="mi">🎯</span>Year-in-review + 2027 Vision Board</li></ul></div>
   </div>
-
-</div>
-
-<!-- ══════════════════════════════════════ -->
-<!-- TAB: ROADMAP                          -->
-<!-- ══════════════════════════════════════ -->
-<div class="tab-content" id="roadmap">
-
-  <div class="sw">
-    <div class="ey">Month by Month</div>
-    <h2>The <span class="a">Roadmap</span></h2>
-    <div class="mg">
-      <div class="mc now"><div class="mc-tag">Now</div><div class="mc-name">March 2026</div><div class="mc-theme">"Ignition month. Everything starts."</div><ul class="ml"><li><span class="mi">✅</span>ML Cert passed (Mar 3)</li><li><span class="mi">✅</span>Resume + LinkedIn updated</li><li><span class="mi">✅</span>Hyrox registered · NYC Marathon confirmed</li><li><span class="mi">🎯</span>Embroidery site LIVE by Mar 31</li><li><span class="mi">🎯</span>Job search + interview prep begins</li><li><span class="mi">🏃‍♀️</span>Hyrox training begins mid-March</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">April</div><div class="mc-name">April 2026</div><div class="mc-theme">"Apply hard. Train hard. Build."</div><ul class="ml"><li><span class="mi">🎯</span>5–8 job applications/week</li><li><span class="mi">🎯</span>Hyrox training 3x/week + 3 runs</li><li><span class="mi">🎯</span>Embroidery: 15+ products, Instagram live</li><li><span class="mi">🎯</span>2+ NYC ML/AI meetups</li><li><span class="mi">🎯</span>3–5 first-round interviews</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">May</div><div class="mc-name">May 2026</div><div class="mc-theme">"Race + offer. Biggest month yet."</div><ul class="ml"><li><span class="mi">⭐</span>NYC Hyrox — May 30 🏋️</li><li><span class="mi">🎯</span>Offer in hand or final-round interviews</li><li><span class="mi">🧠</span>CaringKind fundraising page LIVE</li><li><span class="mi">🌸</span>Tokyo PoP fundraising page LIVE</li><li><span class="mi">🎯</span>Half Ironman — register + pick race</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">June</div><div class="mc-name">June 2026</div><div class="mc-theme">"New job. New phase. Build Reen."</div><ul class="ml"><li><span class="mi">⭐</span>New job begins</li><li><span class="mi">🎯</span>Half Ironman base: swim 2x, run 3x, bike 1x</li><li><span class="mi">🌿</span>Reen: define scope + start build</li><li><span class="mi">🎯</span>Fashion Substack launch</li><li><span class="mi">🧠</span>CaringKind: first social push + embroidery drop</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">July</div><div class="mc-name">July 2026</div><div class="mc-theme">"🇮🇹 Italy. Ship Reen. Marathon starts."</div><ul class="ml"><li><span class="mi">⭐</span>Italy birthday trip 🇮🇹</li><li><span class="mi">🏃‍♀️</span>NYC Marathon 16-week plan begins (~Jul 14)</li><li><span class="mi">🌿</span>Reen: build phase → beta</li><li><span class="mi">🌸</span>Tokyo PoP: fundraiser event, $3K total</li><li><span class="mi">🎯</span>Half Ironman peak build</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">August</div><div class="mc-name">August 2026</div><div class="mc-theme">"Launch Reen. Train for everything."</div><ul class="ml"><li><span class="mi">⭐</span>Reen submitted to App Store 🌿</li><li><span class="mi">🎯</span>Half Ironman peak + NYC Marathon build</li><li><span class="mi">🗽</span>NYC Running app: start build</li><li><span class="mi">🧠</span>CaringKind + Tokyo: major fundraising push</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">September</div><div class="mc-name">September 2026</div><div class="mc-theme">"Half Ironman race. Marathon peak begins."</div><ul class="ml"><li><span class="mi">⭐</span>Half Ironman RACE DAY 🏊🚴🏃</li><li><span class="mi">🎯</span>NYC Marathon weeks 11–14 (peak training)</li><li><span class="mi">🗽</span>NYC Running app: submit to App Store</li><li><span class="mi">🥦</span>Smart Fridge AI: start build</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">October</div><div class="mc-name">October 2026</div><div class="mc-theme">"Peak marathon training. Two app launches."</div><ul class="ml"><li><span class="mi">🎯</span>NYC Marathon peak training — 20-miler</li><li><span class="mi">⭐</span>NYC Running app launches 🗽</li><li><span class="mi">🥦</span>Smart Fridge AI: submit to App Store</li><li><span class="mi">🎯</span>Marathon taper begins Oct 20</li></ul></div>
-
-      <div class="mc big"><div class="mc-tag">The Big One</div><div class="mc-name">November 2026</div><div class="mc-theme">"Everything takes a backseat."</div><ul class="ml"><li><span class="mi">⭐</span>NYC MARATHON — November 1 🧠</li><li><span class="mi">⭐</span>Smart Fridge AI launches 🥦</li><li><span class="mi">🎯</span>Full 2-week marathon recovery</li><li><span class="mi">🧠</span>Biggest CaringKind fundraising moment</li><li><span class="mi">🏃‍♀️</span>Nov 15: Tokyo easy rebuild begins</li></ul></div>
-
-      <div class="mc"><div class="mc-tag">December</div><div class="mc-name">December 2026</div><div class="mc-theme">"Recover. Rebuild. Close out the year."</div><ul class="ml"><li><span class="mi">🌸</span>Dec 15: Tokyo 11-week plan begins</li><li><span class="mi">🌸</span>Tokyo PoP: $7,500 FULLY RAISED ✅</li><li><span class="mi">🎯</span>Year-in-review: revenue + what to scale</li><li><span class="mi">🎯</span>2027 Vision Board created</li><li><span class="mi">🎯</span>Holiday embroidery season — prime time</li></ul></div>
-    </div>
-  </div>
-
 </div>
 
 <footer>
   <div class="fn">Mikaela <span class="p">Connell</span></div>
-  <div class="fd2">Updated March 18, 2026 · CaringKind · 3 Apps · Marathon Training Added</div>
+  <div class="fd2">Updated March 18, 2026</div>
 </footer>
 
 </div>
 
+<!-- Back to Top -->
+<button class="btt" onclick="window.scrollTo({top:0})">↑</button>
+
 <script>
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.tab).classList.add('active');
-  });
+// Show/hide back-to-top button
+window.addEventListener('scroll', () => {
+  document.querySelector('.btt').classList.toggle('show', window.scrollY > 400);
 });
 </script>
 </body>
